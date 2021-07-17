@@ -1,0 +1,30 @@
+{
+    "os": "Linux-5.11.0-22-generic-x86_64-with-debian-bullseye-sid",
+    "python": "3.7.10",
+    "heartbeatAt": "2021-07-17T18:42:55.378361",
+    "startedAt": "2021-07-17T18:42:53.806384",
+    "docker": null,
+    "cpu_count": 12,
+    "cuda": null,
+    "args": [
+        "with",
+        "seeds=[1,2,3]",
+        "lr=1e-3",
+        "layout_name=cramped_room",
+        "num_training_iters=5",
+        "num_gpus=0",
+        "experiment_name=wandb-test-3"
+    ],
+    "state": "running",
+    "program": "ppo_rllib_client.py",
+    "codePath": "human_aware_rl/ppo/ppo_rllib_client.py",
+    "git": {
+        "remote": "git@github.com:bengreenberg5/human_aware_rl.git",
+        "commit": "42d289bd9e7058c5a7541b6ccf9e21cd73812501"
+    },
+    "email": "bengreenberg5@gmail.com",
+    "root": "/home/anchorwatt/human_aware_rl",
+    "host": "anvil",
+    "username": "anchorwatt",
+    "executable": "/home/anchorwatt/miniconda3/envs/harl/bin/python"
+}

@@ -324,11 +324,12 @@ def my_config():
 
 def run(params):
     # WandB setup
-    wandb.init(
+    wandb_run = wandb.init(
         project='zsc-overcooked', 
         entity='anchorwatt',
         sync_tensorboard=True,
-        config=my_config(),
+        config=params,
+        reinit=True,
     )
 
     # Retrieve the tune.Trainable object that is used for the experiment
@@ -352,6 +353,8 @@ def run(params):
     save_path = save_trainer(trainer, params)
     if params['verbose']:
         print("saved trainer at", save_path)
+
+    wandb_run.finish()
 
     return result
 
