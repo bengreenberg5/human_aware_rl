@@ -2,9 +2,13 @@
 import argparse, os, sys
 from overcooked_ai_py.agents.benchmarking import AgentEvaluator
 import numpy as np
+import wandb
 
 # environment variable that tells us whether this code is running on the server or not
 LOCAL_TESTING = os.getenv('RUN_ENV', 'production') == 'local'
+
+# WandB setup
+wandb.init(project='zsc-overcooked', entity='anchorwatt')
 
 # Sacred setup (must be before rllib imports)
 from sacred import Experiment
@@ -78,7 +82,7 @@ def my_config():
     D2RL = False
     ### Training Params ###
 
-    num_workers = 30 if not LOCAL_TESTING else 2
+    num_workers = 2 if not LOCAL_TESTING else 2
 
     # list of all random seeds to use for experiments, used to reproduce results
     seeds = [0]
