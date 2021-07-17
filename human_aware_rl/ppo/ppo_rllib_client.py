@@ -7,9 +7,6 @@ import wandb
 # environment variable that tells us whether this code is running on the server or not
 LOCAL_TESTING = os.getenv('RUN_ENV', 'production') == 'local'
 
-# WandB setup
-wandb.init(project='zsc-overcooked', entity='anchorwatt')
-
 # Sacred setup (must be before rllib imports)
 from sacred import Experiment
 ex = Experiment("PPO RLLib")
@@ -326,6 +323,14 @@ def my_config():
 
 
 def run(params):
+    # WandB setup
+    wandb.init(
+        project='zsc-overcooked', 
+        entity='anchorwatt',
+        sync_tensorboard=True,
+        config=my_config(),
+    )
+
     # Retrieve the tune.Trainable object that is used for the experiment
     trainer = gen_trainer_from_params(params)
 
