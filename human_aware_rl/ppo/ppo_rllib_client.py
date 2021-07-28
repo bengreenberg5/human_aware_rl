@@ -185,6 +185,9 @@ def my_config():
     # Which overcooked level to use
     layout_name = "cramped_room"
 
+    layout_names = [layout_name]
+    layout_probs = [1.0]
+
     # all_layout_names = '_'.join(layout_names)
 
     # Name of directory to store training results in (stored in ~/ray_results/<experiment_name>)
@@ -271,13 +274,9 @@ def my_config():
     environment_params = {
         # To be passed into OvercookedGridWorld constructor
 
-        "mdp_params" : {
-            "layout_name": layout_name,
-            "rew_shaping_params": rew_shaping_params
-        },
         # To be passed into OvercookedEnv constructor
         "env_params" : {
-            "horizon" : horizon
+            "horizon" : horizon,
         },
 
         # To be passed into OvercookedMultiAgent constructor
@@ -288,6 +287,17 @@ def my_config():
             "bc_schedule" : bc_schedule
         }
     }
+
+    if len(layout_names) > 1:
+        environment_params["mdp_params_schedule_fn"] = lambda: {
+            "layout_name": np.random.choice(layout_names, 1, p=layout_probs)[0],
+            "rew_shaping_params": rew_shaping_params,
+        }
+    else:
+        environment_params["mdp_params"] = {
+            "layout_name": layout_name,
+            "rew_shaping_params": rew_shaping_params
+        }
 
     bc_params = {
         "bc_policy_cls" : BehaviorCloningPolicy,
